@@ -16,8 +16,6 @@ export class DiscStorage {
 		const file = new FileInternal(name, info);
 		const saveLocation = typeof target === "function" ? target(file) : target;
 
-		console.log("disc", file)
-
 		const filePath = path.join(saveLocation?.directory ?? os.tmpdir(), saveLocation?.fileName ?? file.originalName);
 		const fileStream = fs.createWriteStream(filePath);
 		return new Promise(resolve => {

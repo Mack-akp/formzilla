@@ -18,9 +18,16 @@ const formDataParser = async (instance, options) => {
 		const bus = busboy({ headers: message.headers, limits, defParamCharset: "utf8" });
 		bus.on("file", (name, stream, info) => {
 			results.push(storage.process(name, stream, info));
-			if(!body[name]) {
-				appendField(body, name, JSON.stringify(info));
-			}
+			// const fileProp = body[name]
+			// if(!fileProp) {
+			// 	appendField(body, name, JSON.stringify(info));
+			// 	return;
+			// }
+			// if (Array.isArray(fileProp)) {
+			// 	fileProp.push(JSON.stringify(info));
+			// 	return;
+			// }
+			// body[name] = [fileProp, JSON.stringify(info)]
 		});
 		bus.on("field", (name, value) => {
 			appendField(body, name, parser.parseField(name, value));
@@ -40,17 +47,18 @@ const formDataParser = async (instance, options) => {
 			for (const file of files) {
 				const field = file.field;
 				delete file.field;
-				if(!fileFields[field]) {
+				const fileProp = fileFields[field]
+				if(!fileProp) {
 					appendField(fileFields, field, file);
 					continue;
 				}
-				fileFields[field] = [
-					fileFields[field],
-					file
-				]
+				if (Array.isArray(fileProp)) {
+					fileProp.push(file);
+					continue;
+				}
+				fileFields[field] = [fileProp, file]
 			}
 			Object.assign(request.body, fileFields);
-			console.log("request.body",request.body)
 		}
 		delete request.__files__;
 	});
