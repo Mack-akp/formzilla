@@ -3,8 +3,7 @@
 import { StreamStorage } from './StreamStorage.js';
 import { FieldParserWithSchema } from './FieldParserWithSchema.js';
 import { FieldParserNoSchema } from './FieldParserNoSchema.js';
-import busboy from "busboy";
-// import Busboy from "@fastify/busboy";
+import Busboy from "@fastify/busboy";
 import { finished } from "stream";
 import appendField from "append-field";
 
@@ -15,19 +14,9 @@ const formDataParser = async (instance, options) => {
 		const body = {};
 		const props = request.routeOptions.schema?.body?.properties;
 		const parser = props ? new FieldParserWithSchema(props) : new FieldParserNoSchema();
-		const bus = busboy({ headers: message.headers, limits, defParamCharset: "utf8" });
-		bus.on("file", (name, stream, info) => {
-			results.push(storage.process(name, stream, info));
-			// const fileProp = body[name]
-			// if(!fileProp) {
-			// 	appendField(body, name, JSON.stringify(info));
-			// 	return;
-			// }
-			// if (Array.isArray(fileProp)) {
-			// 	fileProp.push(JSON.stringify(info));
-			// 	return;
-			// }
-			// body[name] = [fileProp, JSON.stringify(info)]
+		const bus = new Busboy({ headers: message.headers, limits, defParamCharset: "utf8" });
+		bus.on("file", (name, stream, filename, encoding, mimetype) => {
+			results.push(storage.process(name, stream, { filename, encoding, mimeType: mimetype }));
 		});
 		bus.on("field", (name, value) => {
 			appendField(body, name, parser.parseField(name, value));

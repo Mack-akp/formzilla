@@ -1,5 +1,5 @@
 {
-	"name": "formzilla",
+	"name": "@akhp/formzilla",
 	"version": "3.2.15",
 	"description": "Fastify plugin for parsing multipart/form data",
 	"type": "module",
@@ -7,15 +7,14 @@
 	"scripts": {
 		"test": "ava"
 	},
-	"author": "FlameWolf",
+	"author": "FlameWolf modify by akhp",
 	"repository": {
-		"url": "https://github.com/FlameWolf/formzilla"
+		"url": "https://github.com/Mack-akp/formzilla"
 	},
 	"license": "ISC",
 	"dependencies": {
 		"@fastify/busboy": "^2.1.1",
 		"append-field": "^2.0.0",
-		"busboy": "^1.6.0",
 		"fastify": "^4.26.2"
 	},
 	"keywords": [
