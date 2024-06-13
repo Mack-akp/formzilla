@@ -24,15 +24,16 @@ const formDataParser = async (instance, options) => {
 		finished(bus, (err = null) => {
 			Promise.all(results).then(files => {
 				request.__files__ = files;
-				done(err, body);
+				done(err, JSON.parse(JSON.stringify(body)));
 			});
 		});
 		message.pipe(bus);
 	});
 	instance.addHook("preHandler", async request => {
 		const files = request.__files__;
+		const req = {}
 		if (files?.length) {
-			const fileFields = {};
+			const fileFields = Object.assign({}, request.body);
 			for (const file of files) {
 				const field = file.field;
 				delete file.field;
