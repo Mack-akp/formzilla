@@ -1,11 +1,11 @@
 "use strict";
 
-const setup = require("./setup");
-const test = require("ava");
-const { Readable } = require("stream");
+import setup from "./setup.js";
+import test from "ava";
+import { Readable } from 'stream';
 
 test("should parse fields as strings when there is no schema", async t => {
-	const instance = require("fastify").fastify();
+	const instance = (await import('fastify')).fastify();
 	t.teardown(async () => {
 		await instance.close();
 	});

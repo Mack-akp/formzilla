@@ -1,9 +1,7 @@
 "use strict";
 
-class FieldParserNoSchema {
+export class FieldParserNoSchema {
 	parseField(name, value) {
 		return value;
 	}
 }
-
-exports.FieldParserNoSchema = FieldParserNoSchema;

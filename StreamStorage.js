@@ -1,9 +1,9 @@
 "use strict";
 
-const { FileInternal } = require("./FileInternal");
-const { PassThrough, finished } = require("stream");
+import { FileInternal } from "./FileInternal.js";
+import { PassThrough, finished } from "stream";
 
-class StreamStorage {
+export class StreamStorage {
 	process(name, stream, info) {
 		const file = new FileInternal(name, info);
 		const delegateStream = new PassThrough();
@@ -17,5 +17,3 @@ class StreamStorage {
 		});
 	}
 }
-
-exports.StreamStorage = StreamStorage;

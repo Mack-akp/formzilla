@@ -1,6 +1,6 @@
 "use strict";
 
-class FileInternal {
+export class FileInternal {
 	field;
 	originalName;
 	encoding;
@@ -16,5 +16,3 @@ class FileInternal {
 		this.mimeType = info.mimeType;
 	}
 }
-
-exports.FileInternal = FileInternal;

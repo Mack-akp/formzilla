@@ -1,9 +1,9 @@
 "use strict";
 
-const { FileInternal } = require("./FileInternal");
-const { finished } = require("stream");
+import { FileInternal } from "./FileInternal.js";
+import { finished } from "stream";
 
-class BufferStorage {
+export class BufferStorage {
 	process(name, stream, info) {
 		const file = new FileInternal(name, info);
 		const data = [];
@@ -17,5 +17,3 @@ class BufferStorage {
 		});
 	}
 }
-
-exports.BufferStorage = BufferStorage;

@@ -1,6 +1,6 @@
 "use strict";
 
-class CallbackStorage {
+export class CallbackStorage {
 	callback;
 	constructor(callback) {
 		this.callback = callback;
@@ -9,5 +9,3 @@ class CallbackStorage {
 		return this.callback(name, stream, info);
 	}
 }
-
-exports.CallbackStorage = CallbackStorage;

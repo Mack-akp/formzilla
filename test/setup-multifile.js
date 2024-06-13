@@ -1,9 +1,13 @@
 "use strict";
 
-const formDataParser = require("../index");
-const formData = require("form-data");
-const path = require("path");
-const fs = require("fs");
+import formDataParser from "../index.js";
+import formData from "form-data";
+import path from "path";
+import * as fs from "fs";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const requestSchema = {
 	consumes: ["multipart/form-data"],
@@ -20,7 +24,7 @@ const requestSchema = {
 		}
 	}
 };
-module.exports = async function (instance, options = undefined, includeSchema = true) {
+export default async (instance, options = undefined, includeSchema = true) => {
 	instance.register(formDataParser, options);
 	instance.post(
 		"/",

@@ -1,11 +1,11 @@
 "use strict";
 
-const setup = require("./setup");
-const test = require("ava");
-const { Readable } = require("stream");
+import setup from "./setup.js";
+import test from "ava";
+import { Readable } from 'stream';
 
 test("should store file as stream and populate request body", async t => {
-	const instance = require("fastify").fastify();
+	const instance = (await import('fastify')).fastify();
 	t.teardown(async () => {
 		await instance.close();
 	});

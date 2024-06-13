@@ -1,12 +1,12 @@
 "use strict";
 
-const setup = require("./setup");
-const test = require("ava");
-const { Buffer } = require("buffer");
-const { BufferStorage } = require("../BufferStorage");
+import setup from "./setup.js";
+import test from "ava";
+import { Buffer } from "buffer";
+import { BufferStorage } from '../BufferStorage.js';
 
 test("should store file as buffer and populate request body", async t => {
-	const instance = require("fastify").fastify();
+	const instance = (await import('fastify')).fastify();
 	t.teardown(async () => {
 		await instance.close();
 	});

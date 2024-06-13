@@ -1,11 +1,11 @@
 "use strict";
 
-const setup = require("./setup");
-const test = require("ava");
-const { DiscStorage } = require("../DiscStorage");
+import setup from "./setup.js";
+import test from "ava";
+import { DiscStorage } from '../DiscStorage.js';
 
 test("should save file to disc and populate request body", async t => {
-	const instance = require("fastify").fastify();
+	const instance = (await import('fastify')).fastify();
 	t.teardown(async () => {
 		await instance.close();
 	});
@@ -24,7 +24,7 @@ test("should save file to disc and populate request body", async t => {
 	}
 });
 test("should read file save target from function", async t => {
-	const instance = require("fastify").fastify();
+	const instance = (await import('fastify')).fastify();
 	t.teardown(async () => {
 		await instance.close();
 	});

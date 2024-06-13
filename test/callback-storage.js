@@ -1,12 +1,12 @@
 "use strict";
 
-const setup = require("./setup");
-const test = require("ava");
-const { CallbackStorage } = require("../CallbackStorage");
-const { FileInternal } = require("../FileInternal");
+import setup from "./setup.js";
+import test from "ava";
+import { CallbackStorage } from '../CallbackStorage.js';
+import { FileInternal } from "../FileInternal.js";
 
 test("should pass file stream to callback and populate request body", async t => {
-	const instance = require("fastify").fastify();
+	const instance = (await import('fastify')).fastify();
 	t.teardown(async () => {
 		await instance.close();
 	});

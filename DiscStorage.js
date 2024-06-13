@@ -1,12 +1,12 @@
 "use strict";
 
-const { FileInternal } = require("./FileInternal");
-const { finished } = require("stream");
-const path = require("path");
-const os = require("os");
-const fs = require("fs");
+import { FileInternal } from "./FileInternal.js";
+import { finished } from "stream";
+import path from "path";
+import os from "os";
+import * as fs from "fs";
 
-class DiscStorage {
+export class DiscStorage {
 	target;
 	constructor(target) {
 		this.target = target;
@@ -15,7 +15,10 @@ class DiscStorage {
 		const target = this.target;
 		const file = new FileInternal(name, info);
 		const saveLocation = typeof target === "function" ? target(file) : target;
-		const filePath = path.join(saveLocation?.directory || os.tmpdir(), saveLocation?.fileName || file.originalName);
+
+		console.log("disc", file)
+
+		const filePath = path.join(saveLocation?.directory ?? os.tmpdir(), saveLocation?.fileName ?? file.originalName);
 		const fileStream = fs.createWriteStream(filePath);
 		return new Promise(resolve => {
 			finished(stream, err => {
@@ -27,5 +30,3 @@ class DiscStorage {
 		});
 	}
 }
-
-exports.DiscStorage = DiscStorage;

@@ -1,6 +1,6 @@
 "use strict";
 
-class FieldParserWithSchema {
+export class FieldParserWithSchema {
 	props;
 	constructor(props) {
 		this.props = props;
@@ -16,5 +16,3 @@ class FieldParserWithSchema {
 		return value;
 	}
 }
-
-exports.FieldParserWithSchema = FieldParserWithSchema;
