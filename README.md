@@ -1,6 +1,6 @@
 # Formzilla
 
-Formzilla is a [Fastify](http://fastify.io/) plugin to handle `multipart/form-data` content.
+Formzilla is a [Fastify](http://fastify.io/) plugin to handle `multipart/form-data` content and support array field
 
 # Why?
 
