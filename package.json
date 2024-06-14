@@ -1,7 +1,7 @@
 {
 	"name": "@akhp/formzilla",
-	"version": "3.2.19",
-	"description": "Fastify plugin for parsing multipart/form data and support array field",
+	"version": "3.2.15",
+	"description": "Fastify plugin for parsing multipart/form data with nested array/object",
 	"type": "module",
 	"exports": "./index.js",
 	"scripts": {

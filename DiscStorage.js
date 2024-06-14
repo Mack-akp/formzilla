@@ -8,8 +8,10 @@ import * as fs from "fs";
 
 export class DiscStorage {
 	target;
-	constructor(target) {
+	isPersist;
+	constructor(target, isPersist = false) {
 		this.target = target;
+		this.isPersist = isPersist;
 	}
 	process(name, stream, info) {
 		const target = this.target;
