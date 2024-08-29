@@ -36,6 +36,11 @@ module.exports = async function (instance, options = undefined, includeSchema = 
 	const stream = fs.createReadStream(path.join(__dirname, "chequer.png"));
 	form.append("files", stream);
 	form.append("files", stream);
+
+	form.append("data[0]['id']", 1);
+	form.append("data[0]['image']", stream);
+	form.append("data[1]['id']", 2);
+	form.append("data[1]['image']", stream);
 	return await instance.inject({
 		protocol: "http:",
 		hostname: "localhost",

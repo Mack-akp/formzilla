@@ -4,6 +4,7 @@ import { FileInfo } from "busboy";
 
 export declare class DiscStorage implements StorageOption {
 	private target: TargetType;
-	constructor(target: TargetType);
+	public isPersist: boolean;
+	constructor(target: TargetType, isPersist?: boolean);
 	process(name: string, stream: Readable, info: FileInfo): Promise<File>;
 }
