@@ -1,14 +1,14 @@
 {
-	"name": "formzilla",
+	"name": "@akhp/formzilla",
 	"version": "3.2.18",
-	"description": "Fastify plugin for parsing multipart/form data",
+	"description": "Fastify plugin for parsing multipart/form data with nested array/object",
 	"main": "index.js",
 	"scripts": {
 		"test": "ava"
 	},
-	"author": "FlameWolf",
+	"author": "FlameWolf modify by akhp",
 	"repository": {
-		"url": "https://github.com/FlameWolf/formzilla"
+		"url": "https://github.com/Mack-akp/formzilla"
 	},
 	"license": "ISC",
 	"dependencies": {

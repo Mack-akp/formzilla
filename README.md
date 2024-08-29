@@ -1,12 +1,60 @@
 # Formzilla
 
-Formzilla is a [Fastify](http://fastify.io/) plugin to handle `multipart/form-data` content.
+Formzilla is a [Fastify](http://fastify.io/) plugin to handle `multipart/form-data` content and work with nested array/object
 
 # Why?
 
 Even though other plugins for the same purpose exist, like [@fastify/multipart][1] and [fastify-multer][2], when dealing with mixed content, they don't play well with JSON schemas which are Fastify's built-in mechanism for request validation and documentation. Formzilla is intended to work seamlessly with JSON schemas and [@fastify-swagger][3].
 
 # Example
+
+
+Content with nested array/object
+
+```tsx
+const formData = new FormData()
+formData.append('item[0][id]','1')
+formData.append('item[0][name]','PS4 Pro')
+formData.append('item[0][image]',file)
+
+formData.append('item[1][id]','2')
+formData.append('item[1][name]','PS5')
+formData.append('item[1][image]',file)
+
+/*
+request.body will look like this:
+{
+	item: [
+		{
+			id: '1',
+			name: 'PS4 Pro'
+			image: {
+				fileName: "flame-wolf.png",
+				encoding: "7bit",
+				mimeType: "image/png",
+				path?: <string>,		// Only when using DiscStorage
+				stream?: <Readable>		// Only when using StreamStorage
+				data?: <Buffer>			// Only when using BufferStorage
+				error?: <Error>			// Only if any errors occur during processing
+			}
+		},
+		{
+			id: '2',
+			name: 'PS5'
+			image: {
+				fileName: "flame-wolf.png",
+				encoding: "7bit",
+				mimeType: "image/png",
+				path?: <string>,		// Only when using DiscStorage
+				stream?: <Readable>		// Only when using StreamStorage
+				data?: <Buffer>			// Only when using BufferStorage
+				error?: <Error>			// Only if any errors occur during processing
+			}
+		}
+	],
+}
+*/
+```
 
 Let's say you have an endpoint that accepts `multipart/form-data` with the following schema.
 
@@ -91,7 +139,7 @@ server.register(
 # Installation
 
 ```sh
-npm install formzilla
+npm install @akhp/formzilla
 ```
 
 # Important
@@ -144,7 +192,7 @@ These are the valid keys for the `options` object parameter accepted by Formzill
         	storage: new BufferStorage()
         });
         ```
-    -   `DiscStorage`: Saves the file to the disc. Accepts a parameter that can be either a `formzilla.FileSaveTarget` or a function that accepts a `formzilla.File` parameter and returns a `formzilla.FileSaveTarget`. By default, Formzilla will save the file to the operating system's TEMP directory. Example:
+    -   `DiscStorage`: Saves the file to the disc. Accepts a parameter that can be either a `formzilla.FileSaveTarget` or a function that accepts a `formzilla.File` parameter with 2nd parameter to save persistent files, and returns a `formzilla.FileSaveTarget`. By default, Formzilla will save the file to the operating system's TEMP directory. Example:
         ```tsx
         server.register(formDataParser, {
         	storage: new DiscStorage(file => {
@@ -152,7 +200,7 @@ These are the valid keys for the `options` object parameter accepted by Formzill
         			directory: path.join(__dirname, "public"),
         			fileName: file.originalName.toUpperCase()
         		};
-        	})
+        	},true)
         });
         ```
     -   `CallbackStorage`: For advanced users. Accepts a callback function that takes three parameters: a `string`, a `Readable`, and a `busboy.FileInfo`. The callback function must consume the `Readable` and return either a `formzilla.File` or a promise that resolves to a `formzilla.File`. Example:
